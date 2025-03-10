@@ -7,7 +7,7 @@ ft_strlen:
     xor rax, rax
 
 .loop_count:
-    cmp byte [rdi], 0 ; works as a strcmp() then set zero flag if the result is 0
+    cmp byte [rdi], 0       ; works as a strcmp() then set zero flag if the result is 0
     jz .done
     inc rdi
     inc rax
