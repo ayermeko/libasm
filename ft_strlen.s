@@ -7,7 +7,7 @@ ft_strlen:
     jz    .done             ; If NULL, return 0
 
 .loop:
-    cmp   byte [rdi + rax], 0 ; Compare the current byte with 0
+    cmp   byte [rdi + rax], 0 ; Compare the current byte with 0   
     je    .done              ; If null terminator is found, exit
     inc   rax               ; Increment the length counter
     jmp   .loop             ; Continue the loop
