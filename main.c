@@ -10,11 +10,11 @@
 #include <errno.h>  // to check if the syscalls return same errno as the orginal syscalls
                     // stores error codes set by system calls
 
-size_t          ft_strlen(const char *s);
-char            *ft_strcpy(char *dest, const char *src);
-int             ft_strcmp(const char *s1, const char *s2);
-ssize_t         ft_read(int fd, void *buf, size_t count);
-// ssize_t         ft_write(int fd, const void *buf, size_t count);
+extern size_t          ft_strlen(const char *s);
+extern char            *ft_strcpy(char *dest, const char *src);
+extern int             ft_strcmp(const char *s1, const char *s2);
+extern ssize_t         ft_read(int fd, void *buf, size_t count);
+extern ssize_t         ft_write(int fd, const void *buf, size_t count);
 // char            *ft_strdup(const char *s);
 
 void	strlen_test()
@@ -83,37 +83,39 @@ void 	read_test(void)
 	printf("\n--------------ft_read---------------\n\n");
 
 	char *file1 = "test.txt";
-	char *file2 = "";
-	char *buf1 = malloc(sizeof(char) * 50);
-	char *buf2 = malloc(sizeof(char) * 50);
-	int fd1 = open(file1, O_RDONLY);
-	int	fd2 = open(file2, O_RDONLY);
+	char buf1[500];
+	char buf2[500];
+	bzero(buf1, sizeof(buf1));
+	bzero(buf2, sizeof(buf2));
+	int fd1 = open(file1, O_RDWR | O_CREAT, 0644);
+	int	fd2 = -1;
 
 	errno = 0;
 	printf("read() return value \t [%zd]\n", read(fd1, buf1, 40));
 	printf("read() read buf \t [%s]\n", buf1);
 	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
 	errno = 0;
+	close(fd1);
+	fd1 = open(file1, O_RDONLY);
 	printf("ft_read() return value \t [%zd]\n", ft_read(fd1, buf1, 40));
 	printf("ft_read() read buf \t [%s]\n", buf1);
 	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
 	printf("\n");
-
 	errno = 0;
 	printf("read() return value \t [%zd]\n", read(fd2, buf2, 40));
 	printf("read() read buf \t [%s]\n", buf2);
 	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
 	errno = 0;
+	close(fd1);
+	fd1 = open(file1, O_RDONLY);
 	printf("ft_read() return value \t [%zd]\n", ft_read(fd2, buf2, 40));
 	printf("ft_read() read buf \t [%s]\n", buf2);
 	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
 	close(fd2);
 	printf("\n");
-
 	errno = 0;
-	printf("read() return value \t [%zd]\n", read(fd1, 0, 40));
-	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-	errno = 0;
+	close(fd1);
+	fd1 = open(file1, O_RDONLY);
 	printf("ft_read() return value \t [%zd]\n", ft_read(fd1, 0, 40));
 	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
 	close(fd1);
@@ -126,38 +128,35 @@ void 	read_test(void)
 	// printf("ft_read() return value \t [%zd]\n", ft_read(0, buf1, 40));
 	// printf("ft_read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
 	// printf("\n");
-
-	free(buf1);
-	free(buf2);
 }
 
-// void	write_test()
-// {
-// 	printf("\n--------------ft_write---------------\n\n");
-// 	char *buf = "TEST SENTENCE TO TEST WRITE.\n";
-// 	int fd = 1;
-// 	int n = strlen(buf);
-// 	errno = 0;
-// 	printf("write() return value \t\t [%zd]\n", write(fd, buf, n));
-// 	printf("ft_write() return value \t [%zd]\n", ft_write(fd, buf, n));
-// 	printf("\n");
-// 	errno = 0;
-// 	printf("write() return value \t\t [%zd]\n", write(fd, 0, n));
-// 	printf("write() errno \t\t\t [%d] \t [%s]\n", errno, strerror(errno));
-// 	printf("\n");
-// 	errno = 0;
-// 	printf("ft_write() return value \t [%zd]\n", ft_write(fd, 0, n));
-// 	printf("ft_write() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-// 	printf("\n");
-// 	errno = 0;
-// 	printf("write() return value \t\t [%zd]\n", write(-1, 0, n));
-// 	printf("write() errno \t\t\t [%d] \t [%s]\n", errno, strerror(errno));
-// 	printf("\n");
-// 	errno = 0;
-// 	printf("ft_write() return value \t [%zd]\n", ft_write(-1, 0, n));
-// 	printf("ft_write() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-// 	printf("\n");
-// }
+void	write_test()
+{
+	printf("\n--------------ft_write---------------\n\n");
+	char *buf = "TEST SENTENCE TO TEST WRITE.\n";
+	int fd = 1;
+	int n = strlen(buf);
+	errno = 0;
+	printf("write() return value \t\t [%zd]\n", write(fd, buf, n));
+	printf("ft_write() return value \t [%zd]\n", ft_write(fd, buf, n));
+	printf("\n");
+	errno = 0;
+	printf("write() return value \t\t [%zd]\n", write(fd, 0, n));
+	printf("write() errno \t\t\t [%d] \t [%s]\n", errno, strerror(errno));
+	printf("\n");
+	errno = 0;
+	printf("ft_write() return value \t [%zd]\n", ft_write(fd, 0, n));
+	printf("ft_write() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
+	printf("\n");
+	errno = 0;
+	printf("write() return value \t\t [%zd]\n", write(-1, 0, n));
+	printf("write() errno \t\t\t [%d] \t [%s]\n", errno, strerror(errno));
+	printf("\n");
+	errno = 0;
+	printf("ft_write() return value \t [%zd]\n", ft_write(-1, 0, n));
+	printf("ft_write() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
+	printf("\n");
+}
 
 // void	ft_strdup_test(void)
 // {
@@ -174,9 +173,9 @@ void 	read_test(void)
 
 int 	main(void)
 {
-	strlen_test();
-	strcpy_test();
-	strcmp_test();
+	// strlen_test();
+	// strcpy_test();
+	// strcmp_test();
 	read_test();
 	// write_test();
 	// ft_strdup_test();
