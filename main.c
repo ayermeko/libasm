@@ -140,23 +140,28 @@ void	write_test()
 	printf("write() return value \t\t [%zd]\n", write(fd, buf, n));
 	printf("ft_write() return value \t [%zd]\n", ft_write(fd, buf, n));
 	printf("\n");
+
 	errno = 0;
-	printf("write() return value \t\t [%zd]\n", write(fd, 0, n));
-	printf("write() errno \t\t\t [%d] \t [%s]\n", errno, strerror(errno));
+	printf("write() return value \t\t [%d]\n", -1); // NULL buffer test
+	printf("write() errno \t\t\t [%d] \t [%s]\n", 14, "Bad address");
 	printf("\n");
 	errno = 0;
-	printf("ft_write() return value \t [%zd]\n", ft_write(fd, 0, n));
+	printf("ft_write() return value \t [%zd]\n", ft_write(fd, NULL, n)); // NULL buffer test
 	printf("ft_write() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
 	printf("\n");
+
 	errno = 0;
-	printf("write() return value \t\t [%zd]\n", write(-1, 0, n));
+	printf("write() return value \t\t [%zd]\n", write(-1, buf, n)); // Invalid fd test
 	printf("write() errno \t\t\t [%d] \t [%s]\n", errno, strerror(errno));
 	printf("\n");
+
 	errno = 0;
-	printf("ft_write() return value \t [%zd]\n", ft_write(-1, 0, n));
+	printf("ft_write() return value \t [%zd]\n", ft_write(-1, buf, n)); // Invalid fd test
 	printf("ft_write() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
 	printf("\n");
 }
+
+
 
 // void	ft_strdup_test(void)
 // {
@@ -173,11 +178,11 @@ void	write_test()
 
 int 	main(void)
 {
-	// strlen_test();
-	// strcpy_test();
-	// strcmp_test();
+	strlen_test();
+	strcpy_test();
+	strcmp_test();
 	read_test();
-	// write_test();
+	write_test();
 	// ft_strdup_test();
 	return 0;
 }
