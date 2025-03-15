@@ -5,7 +5,8 @@ SRC			=	ft_strlen.s \
 				ft_strcpy.s \
 				ft_strcmp.s \
 				ft_read.s \
-				ft_write.s
+				ft_write.s \
+				ft_strdup.s
 SRC_O		=	$(SRC:.s=.o)
 FLAGS		=	-Wall -Wextra -Werror
 ASM_FLAGS 	= 	-f elf64

@@ -1,4 +1,4 @@
-extern __errno_location         ; Declare external function to get errno address
+extern __errno_location             ; Declare external function to get errno address
 
 section .text
     global ft_read

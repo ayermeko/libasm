@@ -1,5 +1,5 @@
-section .text
-    global ft_strlen
+section .text               ; read-only code (instructions)
+    global ft_strlen        ; function is bisible to other files during linking
 
 ft_strlen:
     xor   rax, rax          ; Clear RAX (length counter)
