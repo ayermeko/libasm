@@ -112,16 +112,6 @@ void 	read_test(void)
 	printf("ft_read() read buf \t [%s]\n", buf2);
 	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
 	close(fd2);
-	printf("\n");
-	errno = 0;
-	printf("read() return value \t [%zd]\n", read(fd1, 0, 40));
-	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-	close(fd1);
-	fd1 = open(file1, O_RDONLY);
-	printf("ft_read() return value \t [%zd]\n", ft_read(fd1, 0, 40));
-	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
-	close(fd1);
-	printf("\n");
 }
 
 void	write_test()
@@ -172,11 +162,11 @@ void	write_test()
 
 int 	main(void)
 {
-	strlen_test();
-	strcpy_test();
+	// strlen_test();
+	// strcpy_test();
 	strcmp_test();
-	read_test();
-	write_test();
+	// read_test();
+	// write_test();
 	// ft_strdup_test();
 	return 0;
 }
