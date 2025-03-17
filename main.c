@@ -92,13 +92,13 @@ void 	read_test(void)
 
 	errno = 0;
 	printf("read() return value \t [%zd]\n", read(fd1, buf1, 40));
-	printf("read() read buf \t [%s]\n", buf1);
+	printf("read() read buf \t %s\n", buf1);
 	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
 	errno = 0;
 	close(fd1);
 	fd1 = open(file1, O_RDONLY);
 	printf("ft_read() return value \t [%zd]\n", ft_read(fd1, buf1, 40));
-	printf("ft_read() read buf \t [%s]\n", buf1);
+	printf("ft_read() read buf \t %s\n", buf1);
 	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
 	printf("\n");
 	errno = 0;
@@ -114,6 +114,8 @@ void 	read_test(void)
 	close(fd2);
 	printf("\n");
 	errno = 0;
+	printf("read() return value \t [%zd]\n", read(fd1, 0, 40));
+	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
 	close(fd1);
 	fd1 = open(file1, O_RDONLY);
 	printf("ft_read() return value \t [%zd]\n", ft_read(fd1, 0, 40));

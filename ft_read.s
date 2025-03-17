@@ -4,9 +4,9 @@ section .text
     global ft_read
         
 ft_read:                            ; ft_read(rdi, rsi, rdx)
-    test rsi, 0
-    jz .done
-    mov rax, 0                      ; syscall number for read (0)
+    test rsi, rsi
+    jz .null_case
+    xor rax, rax                    ; syscall number for read (0)
     syscall                         ; invoke the system call
     test rax, rax                   ; check if the return value is negative (error)
     js .error                       ; if rax < 0, jump to .error
@@ -14,10 +14,12 @@ ft_read:                            ; ft_read(rdi, rsi, rdx)
         
 .error:     
     neg rax                         ; convert negative error code to positive
-    mov rdx, rax                    ; save the error code in rdi
+    mov rdi, rax                    ; save the error code in rdi
     call __errno_location wrt ..plt ; get the address of errno
-    mov [rax], rdx                  ; set errno to the error code
+    mov [rax], rdi                  ; set errno to the error code
+    mov rax, -1
+    ret
 
-.done:
-    mov rax, -1                     ; return -1 to indicate an error
+.null_case:
+    xor rax, rax                    ; return -1 to indicate an error
     ret                             ; return

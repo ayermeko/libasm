@@ -7,9 +7,9 @@ ft_write:
     test rsi, rsi                   ; Check if buf (rsi) is NULL
     jz .null_buf_error              ; If NULL, handle error
 
-    mov rax, 1                      ; Syscall number for write
+    xor rax, rax                    
+    inc rax                         ; Syscall number for write
     syscall                         ; Perform system call
-
     cmp rax, 0                      ; Check if syscall failed (negative return value)
     jl .error
     ret
