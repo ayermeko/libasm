@@ -3,23 +3,17 @@ extern __errno_location             ; Declare external function to get errno add
 section .text
     global ft_read
         
-ft_read:                            ; ft_read(rdi, rsi, rdx)
-    test rsi, rsi
-    jz .null_case
-    xor rax, rax                    ; syscall number for read (0)
+ft_read:                            ; ft_read(fd, buf, count)
+    mov rax, 0                      ; syscall number for read (0)
     syscall                         ; invoke the system call
-    test rax, rax                   ; check if the return value is negative (error)
-    js .error                       ; if rax < 0, jump to .error
-    ret                             ; return the number of bytes read (success)
-        
-.error:     
-    neg rax                         ; convert negative error code to positive
-    mov rdi, rax                    ; save the error code in rdi
-    call __errno_location wrt ..plt ; get the address of errno
-    mov [rax], rdi                  ; set errno to the error code
-    mov rax, -1
-    ret
+    cmp rax, 0                      ; check if the return value is negative
+    jl .error                       ; if rax < 0, jump to error handling
+    ret                             ; return number of bytes read (success)
 
-.null_case:
-    xor rax, rax                    ; return -1 to indicate an error
-    ret                             ; return
+.error:     
+    neg rax                         ; Convert negative error code to positive
+    mov rdi, rax                    ; Move positive error code into rdi
+    call __errno_location wrt ..plt ; Get address of errno, use plt to fetch the libc
+    mov [rax], rdi                  ; Store positive error code in errno
+    mov rax, -1                     ; Return -1 (standard for syscalls on failure)
+    ret

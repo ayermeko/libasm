@@ -122,14 +122,6 @@ void 	read_test(void)
 	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
 	close(fd1);
 	printf("\n");
-
-	// errno = 0;
-	// printf("read() return value \t [%zd]\n", read(0, buf1, 40));
-	// printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-	// errno = 0;
-	// printf("ft_read() return value \t [%zd]\n", ft_read(0, buf1, 40));
-	// printf("ft_read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-	// printf("\n");
 }
 
 void	write_test()
