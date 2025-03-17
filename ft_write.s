@@ -17,13 +17,12 @@ ft_write:
 .error:
     neg rax                         ; Convert syscall return (-errno) to positive value
     mov rdi, rax                    ; Store error number in rdi
-    call __errno_location wrt ..plt ; Get address of errno, plt dynamically linked, in a runtime
-    mov [rax], rdi                  ; Store errno value
-    mov rax, -1                     ; Return -1 to indicate failure
-    ret
+    jmp .set_errno
 
 .null_buf_error:
     mov rdi, 14                     ; Set errno to EFAULT (Bad Address)
+
+.set_errno:
     call __errno_location wrt ..plt ; Get address of errno
     mov [rax], rdi                  ; Store EFAULT in errno
     mov rax, -1                     ; Return -1 to indicate failure

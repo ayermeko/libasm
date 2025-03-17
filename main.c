@@ -15,7 +15,7 @@ extern char            *ft_strcpy(char *dest, const char *src);
 extern int             ft_strcmp(const char *s1, const char *s2);
 extern ssize_t         ft_read(int fd, void *buf, size_t count);
 extern ssize_t         ft_write(int fd, const void *buf, size_t count);
-// char            *ft_strdup(const char *s);
+char            	*ft_strdup(const char *s);
 
 void	strlen_test()
 {
@@ -145,28 +145,41 @@ void	write_test()
 	printf("\n");
 }
 
+void ft_strdup_test(void)
+{
+    printf("\n--------------ft_strdup---------------\n\n");
 
+    char *str1 = strdup("test1");
+    char *ft_str1 = ft_strdup("test1");
+    printf("strdup \t\t [%s]\n", str1);
+    printf("ft_strdup \t [%s]\n", ft_str1);
+    free(str1);
+    free(ft_str1);
+    printf("\n\n");
 
-// void	ft_strdup_test(void)
-// {
-// 	printf("\n--------------ft_strdup---------------\n\n");
-// 	printf("strdup \t\t [%s]\n", strdup("test1"));
-// 	printf("ft_strdup \t [%s]\n", ft_strdup("test1"));
-// 	printf("\n\n");
-// 	printf("strdup \t\t [%s]\n", strdup("this is a very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong string to test a function"));
-// 	printf("ft_strdup \t [%s]\n", ft_strdup("this is a very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong string to test a function"));
-// 	printf("\n\n");
-// 	printf("strdup \t\t [%s]\n", strdup(""));
-// 	printf("ft_strdup \t [%s]\n", ft_strdup(""));
-// }
+    char *str2 = strdup("this is a very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong string to test a function");
+    char *ft_str2 = ft_strdup("this is a very looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong string to test a function");
+    printf("strdup \t\t [%s]\n", str2);
+    printf("ft_strdup \t [%s]\n", ft_str2);
+    free(str2);
+    free(ft_str2);
+    printf("\n\n");
+
+    char *str3 = strdup("");
+    char *ft_str3 = ft_strdup("");
+    printf("strdup \t\t [%s]\n", str3);
+    printf("ft_strdup \t [%s]\n", ft_str3);
+    free(str3);
+    free(ft_str3);
+}
 
 int 	main(void)
 {
-	// strlen_test();
-	// strcpy_test();
+	strlen_test();
+	strcpy_test();
 	strcmp_test();
-	// read_test();
-	// write_test();
-	// ft_strdup_test();
+	read_test();
+	write_test();
+	ft_strdup_test();
 	return 0;
 }
