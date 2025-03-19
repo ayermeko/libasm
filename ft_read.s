@@ -2,7 +2,7 @@ extern __errno_location             ; Declare external function to get errno add
 
 section .text
     global ft_read
-        
+
 ft_read:                            ; ft_read(fd, buf, count)
     mov rax, 0                      ; syscall number for read (0)
     syscall                         ; invoke the system call

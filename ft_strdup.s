@@ -21,7 +21,6 @@ ft_strdup:
     call ft_strcpy
     ret
 
-
 .malloc_failed:
     pop rdi
     call __errno_location
