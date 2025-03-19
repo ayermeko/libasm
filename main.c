@@ -15,7 +15,7 @@ extern char            *ft_strcpy(char *dest, const char *src);
 extern int             ft_strcmp(const char *s1, const char *s2);
 extern ssize_t         ft_read(int fd, void *buf, size_t count);
 extern ssize_t         ft_write(int fd, const void *buf, size_t count);
-char            	*ft_strdup(const char *s);
+extern char            *ft_strdup(const char *s);
 
 void	strlen_test()
 {
@@ -37,7 +37,6 @@ void		strcpy_test()
 {
 	printf("\n--------------ft_strcpy---------------\n\n");
 
-	//char	dst_one[250];
 	char	dst_two[250];
 
 	char *str1 = "123456789";
@@ -62,7 +61,6 @@ void	strcmp_test()
 	char *str3 = "";
 	char *str4 = "------------------9------------------sdfsfsdfsfasdfasdf---------------asdfasdf";
 	char *str5 = "------------------9------------------sdfsfsdfsfasdfasdf---------------asdfasdf";
-	// char *str5 = NULL;
 
 	printf("strcmp is \t [%d] \t ft_strcmp is \t [%d]\n", strcmp(str1, str2), ft_strcmp(str1, str2));
 	printf("strcmp is \t [%d] \t ft_strcmp is \t [%d]\n", strcmp(str2, str3), ft_strcmp(str2, str3));
@@ -75,7 +73,6 @@ void	strcmp_test()
 	printf("strcmp is \t [%d] \t ft_strcmp is \t [%d]\n", strcmp(str3, str3), ft_strcmp(str3, str3));
 	printf("strcmp is \t [%d] \t ft_strcmp is \t [%d]\n", strcmp(str4, str4), ft_strcmp(str4, str4));
 	printf("strcmp is \t [%d] \t ft_strcmp is \t [%d]\n", strcmp(str4, str5), ft_strcmp(str4, str5));
-	// printf("strcmp is \t [%d] \t ft_strcmp is \t [%d]\n", strcmp(str5, str4), ft_strcmp(str5, str4));
 }
 
 void 	read_test(void)
