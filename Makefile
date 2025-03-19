@@ -31,6 +31,7 @@ fclean: clean
 
 test: $(NAME) main.c
 	@$(CC) $(FLAGS) main.c $(NAME) -o $(TEST)
+	@./test
 
 re: fclean all
 
