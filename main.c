@@ -75,40 +75,54 @@ void	strcmp_test()
 	printf("strcmp is \t [%d] \t ft_strcmp is \t [%d]\n", strcmp(str4, str5), ft_strcmp(str4, str5));
 }
 
-void 	read_test(void)
+void read_test(void)
 {
-	printf("\n--------------ft_read---------------\n\n");
+    printf("\n--------------ft_read---------------\n\n");
 
-	char *file1 = "test.txt";
-	char buf1[500];
-	char buf2[500];
-	bzero(buf1, sizeof(buf1));
-	bzero(buf2, sizeof(buf2));
-	int fd1 = open(file1, O_RDWR | O_CREAT, 0644);
-	int	fd2 = -1;
+    char *file1 = "test.txt";
+    char buf1[500];
+    char buf2[500];
+    bzero(buf1, sizeof(buf1));
+    bzero(buf2, sizeof(buf2));
 
-	errno = 0;
-	printf("read() return value \t [%zd]\n", read(fd1, buf1, 40));
-	printf("read() read buf \t %s\n", buf1);
-	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-	errno = 0;
-	close(fd1);
-	fd1 = open(file1, O_RDONLY);
-	printf("ft_read() return value \t [%zd]\n", ft_read(fd1, buf1, 40));
-	printf("ft_read() read buf \t %s\n", buf1);
-	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
-	printf("\n");
-	errno = 0;
-	printf("read() return value \t [%zd]\n", read(fd2, buf2, 40));
-	printf("read() read buf \t [%s]\n", buf2);
-	printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
-	errno = 0;
-	close(fd1);
-	fd1 = open(file1, O_RDONLY);
-	printf("ft_read() return value \t [%zd]\n", ft_read(fd2, buf2, 40));
-	printf("ft_read() read buf \t [%s]\n", buf2);
-	printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
-	close(fd2);
+    int fd1 = open(file1, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd1 == -1) {
+        perror("Error creating file");
+        return;
+    }
+    ft_write(fd1, "Hello, this is a test file.\n", 28);
+    close(fd1);
+
+    fd1 = open(file1, O_RDONLY);
+    int fd2 = -1;
+
+    errno = 0;
+    printf("read() return value \t [%zd]\n", read(fd1, buf1, 40));
+    printf("read() read buf \t %s\n", buf1);
+    printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
+    
+    errno = 0;
+    close(fd1);
+    fd1 = open(file1, O_RDONLY);
+    printf("ft_read() return value \t [%zd]\n", ft_read(fd1, buf1, 40));
+    printf("ft_read() read buf \t %s\n", buf1);
+    printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
+
+    printf("\n");
+
+    errno = 0;
+    printf("read() return value \t [%zd]\n", read(fd2, buf2, 40));
+    printf("read() read buf \t [%s]\n", buf2);
+    printf("read() errno \t\t [%d] \t [%s]\n", errno, strerror(errno));
+
+    errno = 0;
+    printf("ft_read() return value \t [%zd]\n", ft_read(fd2, buf2, 40));
+    printf("ft_read() read buf \t [%s]\n", buf2);
+    printf("ft_read() errno \t [%d] \t [%s]\n", errno, strerror(errno));
+
+    close(fd1);
+    close(fd2);
+    unlink(file1); // Delete the file
 }
 
 void	write_test()
